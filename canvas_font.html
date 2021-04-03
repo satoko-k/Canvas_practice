@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" heigth="300"></canvas>
+
+    <!-- jQueryを読み込む！必ず先に！ -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- ここからスタート -->
+    <script>
+      const canvas = $("#canvas")[0];
+      const ctx = canvas.getContext("2d"); //書き込み権限を与える
+
+      // カラーの指定
+      ctx.fillStyle = "orange";
+      // fontサイズ、書式
+      ctx.font = "30px _sans";
+      // 文字の設置位置
+      ctx.textBaseline = "top";
+      // 表示文字と座標
+      ctx.textBaselne = "top";
+      // 表示文字と座標
+      ctx.fillText("Hello Word!", 100, 100);
+    </script>
+  </body>
+</html>
