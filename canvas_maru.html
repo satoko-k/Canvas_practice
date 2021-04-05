@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="200"></canvas>
+
+    <!-- jQueryを読み込む！必ず先に！ -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- ここからスタート -->
+    <script>
+      const canvas = $("#canvas")[0];
+      const ctx = canvas.getContext("2d"); //書き込み権限を与える
+
+      // パスの歌詞
+      ctx.beginPath();
+
+      // 　色の指定
+      ctx.fillStyle = "#f00";
+
+      // 線の太さ
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#777"; //線の色
+
+      //円の設定
+      // arc(X座標、Y座標、半径、円のスタート、エンド度（180度など）（描画）、回転(false/true))
+      ctx.arc(100, 100, 50, 0, Math.PI * 2, false); //Math.PIで180度
+
+      //   描画
+      ctx.stroke();
+      ctx.fill();
+    </script>
+  </body>
+</html>
