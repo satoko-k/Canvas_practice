@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>canvas</title>
+  </head>
+  <body>
+    <section>
+      <h1>Canvas</h1>
+
+      <nav>
+        <!-- 線の色を変更するHTML -->
+        <input type="color" />
+        <!-- 線の太さを変更するHTML -->
+        <input type="range" max="" min="" />
+        <button id="clear_btn">クリア</button>
+      </nav>
+
+      <canvas
+        id="drowarea"
+        width="500"
+        height="500"
+        style="border: 1px solid blue"
+      ></canvas>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- ここからスタート -->
+    <script>
+      // 初期化　変数の定義
+      let canvas_mouse_event = false; //スイッチ(フラグ)　true＝線を引く　false=何もしてない
+      let oldX = 0; //1つ前の座標を代入する変数　スタートのX座標
+      let oldY = 0; //1つ前の座標を代入する変数　スタートのY座標
+      let bold_line = 30; //太さ
+      let color = "#cccccc"; //色
+
+      // お絵描きアプリに必要な最低限の要素
+      // mousedown
+      // mousemove
+      // mouseup
+
+      const can = $("#drowarea")[0];
+      const ctx = can.getContext("2d");
+
+      ///////////////////////////////////////////
+      // mousedown
+      //canは#drowareaを指す
+      ///////////////////////////////////////////
+      $(can).on("mousedown", function (e) {
+        // console.log(e);
+        oldY = e.offsetY;
+        oldX = e.offsetX;
+        canvas_mouse_event = true; //スイッチフラグを切り替える
+      });
+      // どこをクリックしたかの情報をとる　eはイベント引数取得
+
+      //////////////////////////////
+      // mousemove
+      //////////////////////////////
+
+      $(can).on("mousemove", function (e) {
+        console.log(e.offsetX); //マウスを動かすだけで値を取得してしまうのでif文を追加
+        if (canvas_mouse_event == true) {
+          const px = e.offsetX;
+          const py = e.offsetY;
+
+          ctx.strokeStyle = color;
+          ctx.lineWidth = bold_line;
+          ctx.lineJoin = "round"; //roundでなめらなかになる
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(oldX, oldY);
+          ctx.lineTo(px, py);
+          ctx.stroke();
+          oldX = px; //開始地点を毎回入れ替える必要あり
+          oldY = py;
+        }
+      });
+
+      /////////////////////////////////////
+      // mouseup
+      //フラグをfalseにする
+      //////////////////////////////////////
+      $(can).on("mouseup", function () {
+        canvas_mouse_event = false;
+      }); ////////////////////////////////////////
+      // falseにするとmousemoveでif文がfalseになるので描かなくなる
+
+      ////////////////////////////////////////
+      // クリアボタンAction
+      $("#clear_btn").on("click", function () {
+        ctx.beginPath();
+        ctx.clearRect(0, 0, can.width, can.height); //その領域を消す
+      });
+      // can.width = canvasの横幅を自動で取得
+    </script>
+  </body>
+</html>
